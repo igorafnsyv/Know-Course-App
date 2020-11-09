@@ -2,8 +2,8 @@
     <string name="app_name">KnowCourse</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
-    <string name="button_next">Next</string>
-    <string name="button_cancel">Cancel</string>
+    <string name="button_next">Log in</string>
+    <string name="button_cancel">Sign up</string>
     <string name="error_password">Password must contain at least 8 characters.</string>
     <string name="filter_title">Filter</string>
     <string name="search_title">Search</string>
@@ -11,7 +11,7 @@
     <string name="course_description">Secondary text</string>
 
     <!-- Shrine backdrop menu labels -->
-    <string name="featured_label">COMP</string>
+    <string name="featured_label">HOME</string>
     <string name="apartment_label">CCCH</string>
     <string name="accessories_label">CCGL</string>
     <string name="shoes_label">CCHU</string>

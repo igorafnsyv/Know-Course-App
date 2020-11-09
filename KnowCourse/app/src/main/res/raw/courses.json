@@ -1,17 +1,20 @@
 [
   {
-    "title": "COMP3330",
+    "code": "COMP3330",
     "url": "https://storage.googleapis.com/material-vignettes.appspot.com/image/0-0.jpg",
-    "price": "Interactive Mobile Application Design and Programming"
+    "title": "Interactive Mobile Application Design and Programming",
+    "description": "This course introduces the techniques for developing interactive mobile applications on Android platform. Topics include user interface design, graphics, parallel computing, database, network, multimedia, sensors and location service. Trends and tools for developing applications on various mobile platforms are also discussed. Students participate in both individual assignments and group projects to practice ideation, reading, writing, coding and presentation skills."
   },
   {
-    "title": "COMP3329",
+    "code": "COMP3329",
     "url": "https://storage.googleapis.com/material-vignettes.appspot.com/image/1-0.jpg",
-    "price": "Computer Game Design and Programming"
+    "title": "Computer Game Design and Programming",
+    "description": "This course introduces the concepts and techniques for computer game design and development. Topics include: game history and genres, game design process, game engine, audio and visual design, 2D and 3D graphics, physics, optimization, camera, network, artificial intelligence and user interface design. Students participate in group projects to gain hands-on experience in using common game engine in the market."
   },
   {
-    "title": "COMP2396",
+    "code": "COMP2396",
     "url": "https://storage.googleapis.com/material-vignettes.appspot.com/image/2-0.jpg",
-    "price": "Object-oriented Programming and Java"
+    "title": "Object-oriented Programming and Java",
+    "description": "Introduction to object-oriented programming; abstract data types and classes; inheritance and polymorphism; object-oriented program design; Java language and its program development environment; user interfaces and GUI programming; collection class and iteration protocol; program documentation."
   }
 ]

@@ -25,18 +25,18 @@ import java.util.List;
 public class CourseEntry {
     private static final String TAG = CourseEntry.class.getSimpleName();
 
-    public final String title;
     public final Uri dynamicUrl;
     public final String url;
-    public final String price;
+    public final String code;
+    public final String title;
     public final String description;
 
     public CourseEntry(
-            String title, String dynamicUrl, String url, String price, String description) {
+            String code, String title, String dynamicUrl, String url, String price, String description) {
+        this.code = code;
         this.title = title;
         this.dynamicUrl = Uri.parse(dynamicUrl);
         this.url = url;
-        this.price = price;
         this.description = description;
     }
 

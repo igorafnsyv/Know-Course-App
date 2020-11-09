@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import hkucs.knowcourse.network.CourseEntry;
 import hkucs.knowcourse.network.ImageRequester;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,11 +18,13 @@ import java.util.List;
  */
 public class CourseCardRecyclerViewAdapter extends RecyclerView.Adapter<CourseCardViewHolder> {
 
-    private List<CourseEntry> productList;
+    private List<CourseEntry> courseList;
+    private List<CourseEntry> courseListCopy;
     private ImageRequester imageRequester;
 
-    CourseCardRecyclerViewAdapter(List<CourseEntry> productList) {
-        this.productList = productList;
+    CourseCardRecyclerViewAdapter(List<CourseEntry> courseList) {
+        this.courseList = courseList;
+        courseListCopy = new ArrayList<>(courseList);
         imageRequester = ImageRequester.getInstance();
     }
 
@@ -34,15 +37,30 @@ public class CourseCardRecyclerViewAdapter extends RecyclerView.Adapter<CourseCa
 
     @Override
     public void onBindViewHolder(@NonNull CourseCardViewHolder holder, int position) {
-        if (productList != null && position < productList.size()) {
-            CourseEntry product = productList.get(position);
-            holder.productTitle.setText(product.title);
-            holder.productPrice.setText(product.price);
+        if (courseList != null && position < courseList.size()) {
+            final CourseEntry course = courseList.get(position);
+            holder.courseCode.setText(course.code);
+            holder.courseTitle.setText(course.title);
         }
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return courseList.size();
+    }
+
+    public void filter(String text) {
+        courseList.clear();
+        if(text.isEmpty()){
+            courseList.addAll(courseListCopy);
+        } else{
+            text = text.toLowerCase();
+            for(CourseEntry course: courseListCopy){
+                if(course.code.toLowerCase().contains(text) || course.code.toLowerCase().contains(text)){
+                    courseList.add(course);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

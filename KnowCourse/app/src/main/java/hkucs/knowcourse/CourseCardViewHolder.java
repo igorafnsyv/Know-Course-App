@@ -6,14 +6,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CourseCardViewHolder extends RecyclerView.ViewHolder {
+public class CourseCardViewHolder extends RecyclerView.ViewHolder  {
 
-    public TextView productTitle;
-    public TextView productPrice;
+    public TextView courseCode;
+    public TextView courseTitle;
 
     public CourseCardViewHolder(@NonNull View itemView) {
         super(itemView);
-        productTitle = itemView.findViewById(R.id.product_title);
-        productPrice = itemView.findViewById(R.id.product_price);
+        courseCode = itemView.findViewById(R.id.course_code);
+        courseTitle = itemView.findViewById(R.id.course_title);
     }
 }
