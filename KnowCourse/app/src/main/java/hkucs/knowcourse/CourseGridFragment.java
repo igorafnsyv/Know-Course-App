@@ -55,6 +55,8 @@ public class CourseGridFragment extends Fragment {
                         CourseDetailFragment course = new CourseDetailFragment();
                         Bundle args = new Bundle();
                         args.putString("code", courseList.get(position).code);
+                        args.putString("title", courseList.get(position).title);
+                        args.putString("description", courseList.get(position).description);
                         course.setArguments(args);
                         ((NavigationHost) getActivity()).navigateTo(course, false); // Navigate to the next Fragment
                     }

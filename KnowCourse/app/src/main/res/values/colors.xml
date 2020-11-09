@@ -6,6 +6,7 @@
     <color name="textColorPrimary">#442C2E</color>
     <color name="loginPageBackgroundColor">#FFFFFF</color>
     <color name="courseGridBackgroundColor">#FFFBFA</color>
+    <color name="courseDetailColor">#fff2df</color>
     <color name="textInputOutlineColor">#007bcb</color>
     <color name="toolbarIconColor">#FFFFFF</color>
 </resources>

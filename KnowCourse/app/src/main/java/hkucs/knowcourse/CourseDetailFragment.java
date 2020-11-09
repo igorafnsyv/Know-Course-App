@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,21 +22,33 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class CourseDetailFragment extends Fragment {
     private String code;
+    private String title;
+    private String description;
     private Toolbar toolbar;
+    private TextView tvTitle;
+    private TextView tvDescription;
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.course_detail_fragment, container, false);
-        code = getArguments().getString("code", "COMP3330");
+        code = getArguments().getString("code");
+        title = getArguments().getString("title");
+        description = getArguments().getString("description");
         // Set up the tool bar
-        toolbar = view.findViewById(R.id.app_bar);
-        setUpToolbar(view);
-        toolbar.setTitle(code);
+        setUpToolbar(view,code);
+
+        tvTitle = view.findViewById(R.id.title);
+        tvDescription = view.findViewById(R.id.description);
+
+        tvTitle.setText(title);
+        tvDescription.setText(description);
+
         return view;
     }
 
-    private void setUpToolbar(View view) {
+    private void setUpToolbar(View view, String code) {
+        toolbar = view.findViewById(R.id.app_bar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null) {
             activity.setSupportActionBar(toolbar);
@@ -45,6 +58,7 @@ public class CourseDetailFragment extends Fragment {
                     ((NavigationHost) getActivity()).navigateTo(new CourseGridFragment(), false); // Navigate to the next Fragment
                 }
             });
+            toolbar.setTitle(code);
         }
 
     }

@@ -62,4 +62,5 @@
         <item name="colorOnPrimary">#FFFFFF</item>
         <item name="colorError">#FD9725</item>
     </style>
+
 </resources>
