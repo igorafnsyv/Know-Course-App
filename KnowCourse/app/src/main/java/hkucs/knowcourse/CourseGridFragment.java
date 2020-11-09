@@ -96,7 +96,7 @@ public class CourseGridFragment extends Fragment {
 
         MenuItem search = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) search.getActionView();
-        searchView.setQueryHint("Input the course code...");
+        searchView.setQueryHint("search course code...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

@@ -15,7 +15,6 @@
         android:paddingTop="100dp"
         android:paddingBottom="100dp">
 
-        <include layout="@layout/backdrop" />
     </LinearLayout>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -32,7 +31,7 @@
             android:paddingEnd="12dp"
             android:paddingRight="12dp"
             app:contentInsetStart="0dp"
-            app:navigationIcon="@drawable/menu"
+            app:navigationIcon="@drawable/ic_arrow_back_24px"
             app:title="@string/app_name" />
     </com.google.android.material.appbar.AppBarLayout>
 

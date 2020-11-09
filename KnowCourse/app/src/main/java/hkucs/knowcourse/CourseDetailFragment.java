@@ -20,32 +20,33 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class CourseDetailFragment extends Fragment {
-
+    private String code;
+    private Toolbar toolbar;
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.course_detail_fragment, container, false);
+        code = getArguments().getString("code", "COMP3330");
         // Set up the tool bar
+        toolbar = view.findViewById(R.id.app_bar);
         setUpToolbar(view);
-        String code = getArguments().getString("code", "COMP3330");
-        System.out.println(code);
+        toolbar.setTitle(code);
         return view;
     }
 
     private void setUpToolbar(View view) {
-        Toolbar toolbar = view.findViewById(R.id.app_bar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null) {
             activity.setSupportActionBar(toolbar);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((NavigationHost) getActivity()).navigateTo(new CourseGridFragment(), false); // Navigate to the next Fragment
+                }
+            });
         }
 
-        toolbar.setNavigationOnClickListener(new NavigationIconClickListener(
-                getContext(),
-                view.findViewById(R.id.product_grid),
-                new AccelerateDecelerateInterpolator(),
-                getContext().getResources().getDrawable(R.drawable.menu), // Menu open icon
-                getContext().getResources().getDrawable(R.drawable.close_menu))); // Menu close icon
     }
 
     @Override
