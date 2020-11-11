@@ -1,6 +1,7 @@
 package com.example.knowcourseapp.models;
 
 import com.example.knowcourseapp.R;
+import com.example.knowcourseapp.network.JsonReader;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -46,10 +47,9 @@ public class Course {
     public static List<Course> getCourses() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         List<Course> list = null;
-        Future<String> res = executorService.submit(() -> getJSON("http://10.0.2.2:8000/api/courses"));
+        Future<String> res = executorService.submit(() -> JsonReader.readJson("http://10.0.2.2:8000/api/courses"));
         try {
             Gson gson = new Gson();
-            res.get();
             list = gson.fromJson(res.get(), new TypeToken<List<Course>>(){}.getType());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -58,31 +58,4 @@ public class Course {
         return list;
     }
 
-    private static String getJSON(String url) {
-        HttpURLConnection connection = null;
-        String response = "";
-        try {
-            URL urlObj = new URL(url);
-            connection = (HttpURLConnection) urlObj.openConnection();
-            connection.setInstanceFollowRedirects(true);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            StringBuilder jsonSourceBuilder = new StringBuilder();
-            while((line = reader.readLine()) != null) {
-                jsonSourceBuilder.append(line);
-                jsonSourceBuilder.append(System.lineSeparator());
-            }
-            response = jsonSourceBuilder.toString();
-            reader.close();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return "failed to connect";
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-        return response;
-    }
 }

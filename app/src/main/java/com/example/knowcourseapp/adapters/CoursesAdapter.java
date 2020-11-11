@@ -1,6 +1,7 @@
 package com.example.knowcourseapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.knowcourseapp.CourseDetailActivity;
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.Course;
 
@@ -29,7 +31,9 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), this.courseName.getText(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(v.getContext(), CourseDetailActivity.class);
+            intent.putExtra("courseCode", this.courseName.getText().toString().split("\\s")[0]);
+            v.getContext().startActivity(intent);
         }
     }
 

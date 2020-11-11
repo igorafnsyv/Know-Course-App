@@ -18,11 +18,9 @@ public class CourseListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
-
         RecyclerView recyclerView = findViewById(R.id.courses);
         courses = Course.getCourses();
         CoursesAdapter adapter = new CoursesAdapter(courses);
-        System.out.println(adapter == null);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
