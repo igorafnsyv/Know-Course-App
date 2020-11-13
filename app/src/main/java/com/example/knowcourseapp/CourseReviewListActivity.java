@@ -21,7 +21,6 @@ public class CourseReviewListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_reviews);
         RecyclerView recyclerView = findViewById(R.id.courseReviews);
-        // Get course code from intent
         Bundle extras = getIntent().getExtras();
         courseReviews = CourseReview.getCourseReview(extras.getString("courseCode"));
         CourseReviewAdapter adapter = new CourseReviewAdapter(courseReviews);

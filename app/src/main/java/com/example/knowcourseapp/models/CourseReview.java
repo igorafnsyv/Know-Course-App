@@ -3,10 +3,14 @@ package com.example.knowcourseapp.models;
 import android.widget.TextView;
 
 import com.example.knowcourseapp.network.JsonReader;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -16,18 +20,65 @@ import java.util.concurrent.Future;
 public class CourseReview {
     private String author;
     private String dateCreated;
-    private String rating;
+    private int rating;
     private String yearTaken;
     private String subclass;
+    private String professor;
+    private String assessment;
+    private int grade;
+    private int workload;
+    private String review;
+    private String suggestion;
 
-    public CourseReview(String author, String dateCreated, String rating, String yearTaken, String subclass) {
+    private static Map<Integer, String> gradesMap;
+    private static Map<Integer, String> workloadMap;
+
+    static {
+        gradesMap = new HashMap<>();
+        gradesMap.put(11, "A+");
+        gradesMap.put(10, "A");
+        gradesMap.put(9, "A-");
+        gradesMap.put(8, "B+");
+        gradesMap.put(7, "B");
+        gradesMap.put(6, "B-");
+        gradesMap.put(5, "C+");
+        gradesMap.put(4, "C");
+        gradesMap.put(3, "C-");
+        gradesMap.put(2, "D+");
+        gradesMap.put(1, "D");
+        gradesMap.put(0, "F");
+
+        workloadMap = new HashMap<>();
+        workloadMap.put(0, "Easy");
+        workloadMap.put(1, "Average");
+        workloadMap.put(2, "Above Average");
+        workloadMap.put(3, "Hell");
+    }
+
+    public static String intToGrade(int num) {
+        return gradesMap.get(num);
+    }
+
+    public static String intToWorkload(int num) {
+        return workloadMap.get(num);
+    }
+
+    public CourseReview(String author, String dateCreated, int rating,
+                        String yearTaken, String subclass, String professor,
+                        String assessment, int grade, int workload,
+                        String review, String suggestion) {
         this.author = author;
         this.dateCreated = dateCreated;
         this.rating = rating;
         this.yearTaken = yearTaken;
         this.subclass = subclass;
+        this.professor = professor;
+        this.assessment = assessment;
+        this.grade = grade;
+        this.workload = workload;
+        this.review = review;
+        this.suggestion = suggestion;
     }
-
 
     public String getAuthor() {
         return author;
@@ -37,7 +88,7 @@ public class CourseReview {
         return dateCreated;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -49,6 +100,30 @@ public class CourseReview {
         return subclass;
     }
 
+    public String getProfessor() {
+        return professor;
+    }
+
+    public String getAssessment() {
+        return assessment;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public int getWorkload() {
+        return workload;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public String getSuggestion() {
+        return suggestion;
+    }
+
     public static List<CourseReview> getCourseReview(String courseCode) {
         List<CourseReview> courseReviews = null;
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -56,7 +131,9 @@ public class CourseReview {
         System.out.println(url);
         Future<String> result = executor.submit(() -> JsonReader.readJson(url));
         try {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create();
             System.out.println(result.get());
             courseReviews = gson.fromJson(result.get(), new TypeToken<List<CourseReview>>(){}.getType());
         } catch (InterruptedException | ExecutionException ex) {

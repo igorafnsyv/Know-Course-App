@@ -2,7 +2,9 @@ package com.example.knowcourseapp.models;
 
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.network.JsonReader;
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
@@ -64,7 +66,9 @@ public class Course {
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/";
         Future<String> response = executorService.submit(() -> JsonReader.readJson(url));
         try {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create();
             course = gson.fromJson(response.get(), Course.class);
         } catch (InterruptedException | ExecutionException ex) {
             ex.printStackTrace();

@@ -26,6 +26,12 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         public TextView rating;
         public TextView yearTaken;
         public TextView subclass;
+        public TextView professor;
+        public TextView assessment;
+        public TextView grade;
+        public TextView workload;
+        public TextView review;
+        public TextView suggestions;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -34,6 +40,12 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
             rating = itemView.findViewById(R.id.rating);
             yearTaken = itemView.findViewById(R.id.yearTaken);
             subclass = itemView.findViewById(R.id.subclass);
+            professor = itemView.findViewById(R.id.professor);
+            assessment = itemView.findViewById(R.id.assessment);
+            grade= itemView.findViewById(R.id.grade);
+            workload = itemView.findViewById(R.id.workload);
+            review = itemView.findViewById(R.id.review);
+            suggestions = itemView.findViewById(R.id.suggestions);
 
         }
 
@@ -63,12 +75,25 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         TextView rating = holder.rating;
         TextView yearTaken = holder.yearTaken;
         TextView subclass = holder.subclass;
+        TextView professor = holder.professor;
+        TextView assessment = holder.assessment;
+        TextView grade = holder.grade;
+        TextView workload = holder.workload;
+        TextView review = holder.review;
+        TextView suggestions = holder.suggestions;
+
 
         authorView.setText(courseReview.getAuthor());
         dateCreatedView.setText(courseReview.getDateCreated());
-        rating.setText(courseReview.getRating());
+        rating.setText(String.valueOf(courseReview.getRating()));
         yearTaken.setText(courseReview.getYearTaken());
         subclass.setText(courseReview.getSubclass());
+        professor.setText(courseReview.getProfessor());
+        assessment.setText(courseReview.getAssessment());
+        grade.setText(CourseReview.intToGrade(courseReview.getGrade()));
+        workload.setText(CourseReview.intToWorkload(courseReview.getWorkload()));
+        review.setText(courseReview.getReview());
+        suggestions.setText(courseReview.getSuggestion());
 
 
     }
