@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="server_address">http://10.0.2.2:8000/</string>
+    <string name="course_list_endpoint">api/courses</string>
+    <string name="course_details_endpoint">api/courses/_code_/</string>
+    <string name="course_review_endpoint">api/courses/_code_/reviews</string>
+</resources>

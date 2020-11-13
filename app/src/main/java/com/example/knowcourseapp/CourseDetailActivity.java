@@ -1,8 +1,12 @@
 package com.example.knowcourseapp;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,10 +24,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class CourseDetailActivity extends AppCompatActivity {
+public class CourseDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView courseTitleView;
     TextView courseDescriptionView;
+    Course course;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,17 +38,7 @@ public class CourseDetailActivity extends AppCompatActivity {
         courseDescriptionView = findViewById(R.id.courseDescription);
 
         Bundle extras = getIntent().getExtras();
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        String url = "http://10.0.2.2:8000/api/courses/" + extras.getString("courseCode");
-        Future<String> response = executorService.submit(() -> JsonReader.readJson(url));
-        Course course = null;
-        try {
-            Gson gson = new Gson();
-            course = gson.fromJson(response.get(), Course.class);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        executorService.shutdown();
+        course = Course.getCourse(extras.getString("courseCode"));
         if (course != null) {
             String courseTitle = course.getCode() + " " + course.getTitle();
             courseTitleView.setText(courseTitle);
@@ -57,6 +52,15 @@ public class CourseDetailActivity extends AppCompatActivity {
             transaction.replace(R.id.prerequisitesFrame, fragment, "");
             transaction.commitAllowingStateLoss();
         }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(v.getContext(), CourseReviewListActivity.class);
+        intent.putExtra("courseCode", course.getCode());
+        startActivity(intent);
+
 
     }
 }

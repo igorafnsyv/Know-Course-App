@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".CourseDetailActivity">
         </activity>
+        <activity android:name=".CourseReviewListActivity"></activity>
 
     </application>
 

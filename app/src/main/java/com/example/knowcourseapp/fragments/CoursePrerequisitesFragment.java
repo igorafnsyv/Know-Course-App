@@ -24,16 +24,27 @@ public class CoursePrerequisitesFragment extends ListFragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             String[] prerequisites = getArguments().getStringArrayList("prerequisites").toArray(new String[0]);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.prerequisite_list_item, prerequisites);
+            ArrayAdapter<String> adapter;
+            if (prerequisites.length == 0) {
+               adapter  = new ArrayAdapter<>(getActivity(), R.layout.prerequisite_list_item,
+                       new String[]{getString(R.string.no_prerequisites)});
+            } else {
+                adapter = new ArrayAdapter<>(getActivity(), R.layout.prerequisite_list_item, prerequisites);
+            }
             setListAdapter(adapter);
         }
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Intent intent = new Intent(v.getContext(), CourseDetailActivity.class);
-        intent.putExtra("courseCode", ((TextView) v).getText());
-        v.getContext().startActivity(intent);
+        String courseCode = ((TextView) v).getText().toString();
+
+        // In case No prerequisites, make the field non-clickable
+        if (!courseCode.equals(getString(R.string.no_prerequisites))) {
+            Intent intent = new Intent(v.getContext(), CourseDetailActivity.class);
+            intent.putExtra("courseCode", courseCode);
+            v.getContext().startActivity(intent);
+        }
     }
 
 }

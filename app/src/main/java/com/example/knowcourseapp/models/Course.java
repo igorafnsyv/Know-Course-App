@@ -58,4 +58,19 @@ public class Course {
         return list;
     }
 
+    public static Course getCourse(String courseCode) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Course course = null;
+        String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/";
+        Future<String> response = executorService.submit(() -> JsonReader.readJson(url));
+        try {
+            Gson gson = new Gson();
+            course = gson.fromJson(response.get(), Course.class);
+        } catch (InterruptedException | ExecutionException ex) {
+            ex.printStackTrace();
+        }
+        executorService.shutdown();
+        return course;
+    }
+
 }
