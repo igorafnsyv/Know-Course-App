@@ -1,8 +1,6 @@
 package com.example.knowcourseapp.models;
 
-import android.widget.TextView;
-
-import com.example.knowcourseapp.network.JsonReader;
+import com.example.knowcourseapp.network.JsonUtility;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -67,6 +64,7 @@ public class CourseReview {
                         String yearTaken, String subclass, String professor,
                         String assessment, int grade, int workload,
                         String review, String suggestion) {
+
         this.author = author;
         this.dateCreated = dateCreated;
         this.rating = rating;
@@ -129,7 +127,7 @@ public class CourseReview {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/reviews/";
         System.out.println(url);
-        Future<String> result = executor.submit(() -> JsonReader.readJson(url));
+        Future<String> result = executor.submit(() -> JsonUtility.readJson(url));
         try {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

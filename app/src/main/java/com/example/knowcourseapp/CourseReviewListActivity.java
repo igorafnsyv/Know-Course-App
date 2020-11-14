@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ public class CourseReviewListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_reviews);
         RecyclerView recyclerView = findViewById(R.id.courseReviews);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         Bundle extras = getIntent().getExtras();
         courseReviews = CourseReview.getCourseReview(extras.getString("courseCode"));
         CourseReviewAdapter adapter = new CourseReviewAdapter(courseReviews);

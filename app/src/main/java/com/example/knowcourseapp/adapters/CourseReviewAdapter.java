@@ -2,6 +2,7 @@ package com.example.knowcourseapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.CourseReview;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapter.ViewHolder> {
 
@@ -72,28 +74,40 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         CourseReview courseReview = reviews.get(position);
         TextView authorView = holder.author;
         TextView dateCreatedView = holder.dateCreated;
-        TextView rating = holder.rating;
-        TextView yearTaken = holder.yearTaken;
-        TextView subclass = holder.subclass;
-        TextView professor = holder.professor;
-        TextView assessment = holder.assessment;
-        TextView grade = holder.grade;
-        TextView workload = holder.workload;
-        TextView review = holder.review;
-        TextView suggestions = holder.suggestions;
+        TextView ratingView = holder.rating;
+        TextView yearTakenView = holder.yearTaken;
+        TextView subclassView = holder.subclass;
+        TextView professorView = holder.professor;
+        TextView assessmentView = holder.assessment;
+        TextView gradeView = holder.grade;
+        TextView workloadView = holder.workload;
+        TextView reviewView = holder.review;
+        TextView suggestionsView = holder.suggestions;
 
+        Resources resources = holder.itemView.getResources();
+        String author = Objects.toString(courseReview.getAuthor(), "");
+        String dateCreated = Objects.toString(courseReview.getDateCreated(), "");
+        String rating = Objects.toString(courseReview.getRating(), "");
+        String yearTaken = Objects.toString(courseReview.getYearTaken(), "");
+        String subclass = Objects.toString(courseReview.getSubclass(), "");
+        String professor = Objects.toString(courseReview.getProfessor(), "");
+        String assessment = Objects.toString(courseReview.getAssessment(), "");
+        String grade = Objects.toString(CourseReview.intToGrade(courseReview.getGrade()), "");
+        String workload = Objects.toString(CourseReview.intToWorkload(courseReview.getWorkload()), "");
+        String review = Objects.toString(courseReview.getReview(), "");
+        String suggestions = Objects.toString(courseReview.getSuggestion(), "");
 
-        authorView.setText(courseReview.getAuthor());
-        dateCreatedView.setText(courseReview.getDateCreated());
-        rating.setText(String.valueOf(courseReview.getRating()));
-        yearTaken.setText(courseReview.getYearTaken());
-        subclass.setText(courseReview.getSubclass());
-        professor.setText(courseReview.getProfessor());
-        assessment.setText(courseReview.getAssessment());
-        grade.setText(CourseReview.intToGrade(courseReview.getGrade()));
-        workload.setText(CourseReview.intToWorkload(courseReview.getWorkload()));
-        review.setText(courseReview.getReview());
-        suggestions.setText(courseReview.getSuggestion());
+        authorView.setText(resources.getString(R.string.author, author));
+        dateCreatedView.setText(resources.getString(R.string.date_created, dateCreated));
+        ratingView.setText(resources.getString(R.string.rating, rating));
+        yearTakenView.setText(resources.getString(R.string.year_taken,yearTaken));
+        subclassView.setText(resources.getString(R.string.subclass, subclass));
+        professorView.setText(resources.getString(R.string.professor, professor));
+        assessmentView.setText(resources.getString(R.string.assessment, assessment));
+        gradeView.setText(resources.getString(R.string.grade, grade));
+        workloadView.setText(resources.getString(R.string.workload, workload));
+        reviewView.setText(resources.getString(R.string.review, review));
+        suggestionsView.setText(resources.getString(R.string.suggestion, suggestions));
 
 
     }

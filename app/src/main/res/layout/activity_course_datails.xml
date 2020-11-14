@@ -31,6 +31,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"/>
 
+        <Button
+            android:id="@+id/writeReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/write_review"/>
+
         <TextView
             android:id="@+id/reviewsButton"
             android:layout_width="match_parent"
