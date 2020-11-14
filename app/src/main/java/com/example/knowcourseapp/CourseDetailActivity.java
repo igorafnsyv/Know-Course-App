@@ -54,8 +54,9 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
                     "        \"suggestions\": \"sample suggestion\"\n" +
                     "}";
             writeReviewButton.setOnClickListener((v) -> {
-                ExecutorService executorService = Executors.newSingleThreadExecutor();
-                executorService.submit(() -> JsonUtility.postJson("http://10.0.2.2:8000/api/courses/COMP3330/reviews/", json));
+                Intent intent = new Intent(v.getContext(), CreateReviewActivity.class);
+                intent.putExtra("courseCode", course.getCode());
+                startActivity(intent);
             });
             String courseTitle = course.getCode() + " " + course.getTitle();
             courseTitleView.setText(courseTitle);

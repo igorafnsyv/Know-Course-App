@@ -1,18 +1,15 @@
 package com.example.knowcourseapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.knowcourseapp.CourseDetailActivity;
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.CourseReview;
 
@@ -95,7 +92,7 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         String grade = Objects.toString(CourseReview.intToGrade(courseReview.getGrade()), "");
         String workload = Objects.toString(CourseReview.intToWorkload(courseReview.getWorkload()), "");
         String review = Objects.toString(courseReview.getReview(), "");
-        String suggestions = Objects.toString(courseReview.getSuggestion(), "");
+        String suggestions = Objects.toString(courseReview.getSuggestions(), "");
 
         authorView.setText(resources.getString(R.string.author, author));
         dateCreatedView.setText(resources.getString(R.string.date_created, dateCreated));

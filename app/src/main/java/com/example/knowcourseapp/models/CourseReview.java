@@ -25,7 +25,7 @@ public class CourseReview {
     private int grade;
     private int workload;
     private String review;
-    private String suggestion;
+    private String suggestions;
 
     private static Map<Integer, String> gradesMap;
     private static Map<Integer, String> workloadMap;
@@ -63,7 +63,7 @@ public class CourseReview {
     public CourseReview(String author, String dateCreated, int rating,
                         String yearTaken, String subclass, String professor,
                         String assessment, int grade, int workload,
-                        String review, String suggestion) {
+                        String review, String suggestions) {
 
         this.author = author;
         this.dateCreated = dateCreated;
@@ -75,7 +75,7 @@ public class CourseReview {
         this.grade = grade;
         this.workload = workload;
         this.review = review;
-        this.suggestion = suggestion;
+        this.suggestions = suggestions;
     }
 
     public String getAuthor() {
@@ -118,8 +118,8 @@ public class CourseReview {
         return review;
     }
 
-    public String getSuggestion() {
-        return suggestion;
+    public String getSuggestions() {
+        return suggestions;
     }
 
     public static List<CourseReview> getCourseReview(String courseCode) {
