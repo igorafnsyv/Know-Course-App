@@ -1,6 +1,8 @@
 package com.example.knowcourseapp.network;
 
-import com.google.gson.Gson;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +20,7 @@ public class JsonUtility {
     private JsonUtility() {}
 
     public static String readJson(String url) {
+
         HttpURLConnection connection = null;
         String response = "";
         try {
@@ -48,7 +51,7 @@ public class JsonUtility {
         return response;
     }
 
-    public static String postJson(String url, String json) {
+    public static String postJson(String url, String json, Context context) {
         HttpURLConnection connection;
         String response = "";
         try {
@@ -59,11 +62,18 @@ public class JsonUtility {
             connection.setRequestProperty("Content-Type", "application/json; utf-8");
             connection.setRequestProperty("Accept", "application/json");
 
-            //TODO: use actual user authentication details
-            String auth = "igor" + ":" + "12345678";
-            byte[] encodeAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
-            String authHeaderValue = "Basic " + new String(encodeAuth);
-            connection.setRequestProperty("Authorization", authHeaderValue);
+            AccountManager manager = AccountManager.get(context);
+            Account[] accounts = manager.getAccountsByType("com.example.knowcourseapp");
+            if (accounts.length > 0) {
+                Account account = accounts[0];
+                String username = account.name;
+                String password = manager.getPassword(account);
+                String auth = username + ":" + password;
+                byte[] encodeAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
+                String authHeaderValue = "Basic " + new String(encodeAuth);
+                connection.setRequestProperty("Authorization", authHeaderValue);
+
+            }
             connection.setDoInput(true);
             connection.setDoOutput(true);
 
@@ -72,7 +82,7 @@ public class JsonUtility {
             writer.write(json);
             writer.flush();
             writer.close();
-            System.out.println(connection.getResponseCode());
+            response = String.valueOf(connection.getResponseCode());
 
 
         } catch (IOException ex) {

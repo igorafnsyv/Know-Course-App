@@ -1,4 +1,4 @@
-package com.example.knowcourseapp;
+package com.example.knowcourseapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.fragments.CoursePrerequisitesFragment;
 import com.example.knowcourseapp.models.Course;
-import com.example.knowcourseapp.network.JsonUtility;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class CourseDetailActivity extends AppCompatActivity implements View.OnClickListener {
 

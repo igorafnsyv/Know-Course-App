@@ -6,12 +6,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
 
-import com.example.knowcourseapp.CourseDetailActivity;
+import com.example.knowcourseapp.activities.CourseDetailActivity;
 import com.example.knowcourseapp.R;
 
 public class CoursePrerequisitesFragment extends ListFragment {

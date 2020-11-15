@@ -1,18 +1,15 @@
-package com.example.knowcourseapp;
+package com.example.knowcourseapp.activities;
 
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.CourseReview;
 import com.example.knowcourseapp.network.JsonUtility;
 import com.google.gson.FieldNamingPolicy;
@@ -33,8 +30,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
     EditText workloadView;
     EditText reviewView;
     EditText suggestionsView;
-    Button submitButton;
-    String courseCode;
+    String COURSE_CODE;
 
     Resources resources;
 
@@ -45,7 +41,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_review);
 
-        courseCode = getIntent().getStringExtra("courseCode");
+        COURSE_CODE = getIntent().getStringExtra("courseCode");
 
         ratingView = findViewById(R.id.ratingInput);
         yearTakenView = findViewById(R.id.yearTakenInput);
@@ -56,7 +52,6 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
         workloadView = findViewById(R.id.workloadInput);
         reviewView = findViewById(R.id.reviewInput);
         suggestionsView = findViewById(R.id.suggestionsInput);
-
         resources = getResources();
 
     }
@@ -94,7 +89,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
         }
 
         if (!errorPresent) {
-            String author = "igor";
+            String author = "";
             int rating = Integer.parseInt(ratingView.getText().toString());
             String yearTaken = yearTakenView.getText().toString();
             String subclass = subclassView.getText().toString();
@@ -113,8 +108,12 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
                     .create();
             String json = gson.toJson(review, CourseReview.class);
             ExecutorService executor = Executors.newSingleThreadExecutor();
-            String url = resources.getString(R.string.server_address) +  resources.getString(R.string.course_review_endpoint, courseCode);
-            executor.submit(() -> JsonUtility.postJson(url, json));
+            String url = resources.getString(R.string.server_address) +  resources.getString(R.string.course_review_endpoint, COURSE_CODE);
+
+            //TODO: handle verification of code
+            executor.submit(() -> JsonUtility.postJson(url, json, this));
+            finish();
+
         }
     }
 }
