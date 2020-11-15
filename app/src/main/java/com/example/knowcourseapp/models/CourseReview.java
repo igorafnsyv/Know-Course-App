@@ -31,6 +31,8 @@ public class CourseReview {
     private static Map<Integer, String> workloadMap;
 
     static {
+
+        //TODO: pass grade?
         gradesMap = new HashMap<>();
         gradesMap.put(11, "A+");
         gradesMap.put(10, "A");
@@ -138,5 +140,16 @@ public class CourseReview {
             ex.printStackTrace();
         }
         return courseReviews;
+    }
+
+    public static int gradeToInt(String grade) {
+        int gradeNum = -1;
+        for (int key : gradesMap.keySet()) {
+            if (gradesMap.get(key).equals(grade)) {
+                gradeNum = key;
+                break;
+            }
+        }
+        return gradeNum;
     }
 }

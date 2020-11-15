@@ -39,20 +39,6 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
         Bundle extras = getIntent().getExtras();
         course = Course.getCourse(extras.getString("courseCode"));
         if (course != null) {
-
-            //TODO: move to separate activity
-            String json = "{\n" +
-                    "    \"course\": \"COMP3330\",\n" +
-                    "        \"date_created\": \"2020-11-01\",\n" +
-                    "        \"rating\": 2,\n" +
-                    "        \"year_taken\": 2019,\n" +
-                    "        \"subclass\": \"B\",\n" +
-                    "        \"professor\": \"Some Professor\",\n" +
-                    "        \"assessment\": \"exam, project\",\n" +
-                    "        \"grade\": 5,\n" +
-                    "        \"review\": \"Good course. Like it\",\n" +
-                    "        \"suggestions\": \"sample suggestion\"\n" +
-                    "}";
             writeReviewButton.setOnClickListener((v) -> {
                 Intent intent = new Intent(v.getContext(), CreateReviewActivity.class);
                 intent.putExtra("courseCode", course.getCode());

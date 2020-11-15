@@ -1,5 +1,7 @@
 package com.example.knowcourseapp.models;
 
+import android.content.res.Resources;
+
 import com.example.knowcourseapp.network.JsonUtility;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
