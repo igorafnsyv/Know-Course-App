@@ -1,4 +1,4 @@
-package com.example.knowcourseapp;
+package com.example.knowcourseapp.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.adapters.CourseReviewAdapter;
 import com.example.knowcourseapp.models.CourseReview;
 
