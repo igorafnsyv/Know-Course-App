@@ -3,6 +3,9 @@ package com.example.knowcourseapp.network;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.knowcourseapp.R;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -62,15 +65,12 @@ public class JsonUtility {
             connection.setRequestProperty("Content-Type", "application/json; utf-8");
             connection.setRequestProperty("Accept", "application/json");
 
-            AccountManager manager = AccountManager.get(context);
-            Account[] accounts = manager.getAccountsByType("com.example.knowcourseapp");
-            if (accounts.length > 0) {
-                Account account = accounts[0];
-                String username = account.name;
-                String password = manager.getPassword(account);
-                String auth = username + ":" + password;
-                byte[] encodeAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.UTF_8));
-                String authHeaderValue = "Basic " + new String(encodeAuth);
+            String sharedPreference = context.getResources().getString(R.string.app_preferences);
+            String tokenResource = context.getResources().getString(R.string.token);
+            SharedPreferences preferences = context.getSharedPreferences(sharedPreference, Context.MODE_PRIVATE);
+            String token = preferences.getString(tokenResource, null);
+            if (token != null) {
+                String authHeaderValue = "Bearer " + token;
                 connection.setRequestProperty("Authorization", authHeaderValue);
 
             }
@@ -82,8 +82,14 @@ public class JsonUtility {
             writer.write(json);
             writer.flush();
             writer.close();
-            response = String.valueOf(connection.getResponseCode());
-
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response += line;
+                }
+            }
 
         } catch (IOException ex) {
             ex.printStackTrace();

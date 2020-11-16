@@ -3,7 +3,9 @@ package com.example.knowcourseapp.activities;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,18 +52,19 @@ public class LoginActivity extends Activity {
         Gson gson = new Gson();
         String json = gson.toJson(map);
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        String url = getString(R.string.server_address) + getString(R.string.verify_login);
+        String url = getString(R.string.server_address) + getString(R.string.retrieve_token);
         Future<String> response = executor.submit(() -> JsonUtility.postJson(url, json, this));
         try {
-            int responseCode = Integer.parseInt(response.get());
-            if (responseCode == 200) {
-                AccountManager manager = AccountManager.get(this);
-                Account account = new Account(username, getString(R.string.package_name));
-                manager.addAccountExplicitly(account, password, null);
+            Map<String, String> responseJson = gson.fromJson(response.get(), Map.class);
+            if (responseJson != null) {
+                SharedPreferences preferences = getSharedPreferences(getString(R.string.app_preferences), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(getString(R.string.token), responseJson.get("token"));
+                editor.apply();
                 Intent intent = new Intent(this, CourseListActivity.class);
                 finish();
                 startActivity(intent);
-            } else if (responseCode == 401) {
+            } else  {
                 Toast.makeText(this, "Incorrect login details", Toast.LENGTH_LONG).show();
             }
         } catch (InterruptedException | ExecutionException ex) {
