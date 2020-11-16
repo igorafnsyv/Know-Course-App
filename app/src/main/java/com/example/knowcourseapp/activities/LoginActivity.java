@@ -56,7 +56,6 @@ public class LoginActivity extends Activity {
         Future<String> response = executor.submit(() -> JsonUtility.postJson(url, json, this));
         try {
             Map<String, String> responseJson = gson.fromJson(response.get(), Map.class);
-            System.out.println(responseJson);
             if (responseJson != null) {
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.app_preferences), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
