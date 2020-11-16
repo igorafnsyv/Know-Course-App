@@ -2,7 +2,9 @@ package com.example.knowcourseapp.activities;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,13 +26,13 @@ public class CourseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        AccountManager manager = AccountManager.get(this);
-        if (manager.getAccountsByType(getString(R.string.package_name)).length == 0) {
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        String token = preferences.getString(getString(R.string.token), null);
+        if (token == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
-
 
 
         RecyclerView recyclerView = findViewById(R.id.courses);

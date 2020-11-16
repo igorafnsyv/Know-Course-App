@@ -82,8 +82,14 @@ public class JsonUtility {
             writer.write(json);
             writer.flush();
             writer.close();
-            response = String.valueOf(connection.getResponseCode());
-
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response += line;
+                }
+            }
 
         } catch (IOException ex) {
             ex.printStackTrace();
