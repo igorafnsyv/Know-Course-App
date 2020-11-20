@@ -18,9 +18,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public class JsonUtility {
+public class NetworkUtility {
 
-    private JsonUtility() {}
+    private NetworkUtility() {}
 
     public static String readJson(String url) {
 
@@ -83,7 +83,14 @@ public class JsonUtility {
             writer.flush();
             writer.close();
             int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+                String line;
+                while((line = reader.readLine()) != null) {
+                    response += line;
+                }
+            }
+            else if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED ) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null) {

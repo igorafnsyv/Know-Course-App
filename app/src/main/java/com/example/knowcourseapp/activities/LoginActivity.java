@@ -1,12 +1,11 @@
 package com.example.knowcourseapp.activities;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.knowcourseapp.R;
-import com.example.knowcourseapp.network.JsonUtility;
+import com.example.knowcourseapp.network.NetworkUtility;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -53,7 +52,7 @@ public class LoginActivity extends Activity {
         String json = gson.toJson(map);
         ExecutorService executor = Executors.newSingleThreadExecutor();
         String url = getString(R.string.server_address) + getString(R.string.retrieve_token);
-        Future<String> response = executor.submit(() -> JsonUtility.postJson(url, json, this));
+        Future<String> response = executor.submit(() -> NetworkUtility.postJson(url, json, this));
         try {
             Map<String, String> responseJson = gson.fromJson(response.get(), Map.class);
             if (responseJson != null) {
@@ -70,7 +69,11 @@ public class LoginActivity extends Activity {
         } catch (InterruptedException | ExecutionException ex) {
             ex.printStackTrace();
         }
+    }
 
+    public void signUpButtonClick(View v) {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
     }
 
 }
