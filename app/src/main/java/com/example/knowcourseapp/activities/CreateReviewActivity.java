@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.CourseReview;
-import com.example.knowcourseapp.network.JsonUtility;
+import com.example.knowcourseapp.network.NetworkUtility;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -111,7 +111,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
             String url = resources.getString(R.string.server_address) +  resources.getString(R.string.course_review_endpoint, COURSE_CODE);
 
             //TODO: handle verification of code
-            executor.submit(() -> JsonUtility.postJson(url, json, this));
+            executor.submit(() -> NetworkUtility.postJson(url, json, this));
             finish();
 
         }

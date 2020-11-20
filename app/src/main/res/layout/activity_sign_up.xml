@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -15,35 +12,40 @@
             android:id="@+id/usernameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:ems="10"
-            android:hint="Username"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:hint="Username" />
+
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword" />
 
-        <Button
-            android:id="@+id/submitLogin"
+        <EditText
+            android:id="@+id/passwordRepeatInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log In" />
+            android:ems="10"
+            android:hint="Repeat Password"
+            android:inputType="textPassword" />
 
-        <TextView
-            android:id="@+id/sign_up"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20sp"
             android:text="Sign Up"
-            android:onClick="signUpButtonClick"/>
-
+            android:onClick="handleSubmit"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

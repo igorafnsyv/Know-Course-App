@@ -6,4 +6,5 @@
     <string name="course_review_endpoint">api/courses/%s/reviews/</string>
     <string name="verify_login">api/verify_login/</string>
     <string name="retrieve_token">api/token-auth/</string>
+    <string name="user_registration">api/users/</string>
 </resources>

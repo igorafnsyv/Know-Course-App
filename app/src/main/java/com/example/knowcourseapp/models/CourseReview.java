@@ -1,6 +1,6 @@
 package com.example.knowcourseapp.models;
 
-import com.example.knowcourseapp.network.JsonUtility;
+import com.example.knowcourseapp.network.NetworkUtility;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -129,7 +129,7 @@ public class CourseReview {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/reviews/";
         System.out.println(url);
-        Future<String> result = executor.submit(() -> JsonUtility.readJson(url));
+        Future<String> result = executor.submit(() -> NetworkUtility.readJson(url));
         try {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

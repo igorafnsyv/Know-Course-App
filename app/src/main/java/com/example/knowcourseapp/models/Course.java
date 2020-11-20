@@ -1,8 +1,6 @@
 package com.example.knowcourseapp.models;
 
-import android.content.res.Resources;
-
-import com.example.knowcourseapp.network.JsonUtility;
+import com.example.knowcourseapp.network.NetworkUtility;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,7 +44,7 @@ public class Course {
     public static List<Course> getCourses() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         List<Course> list = null;
-        Future<String> res = executorService.submit(() -> JsonUtility.readJson("http://10.0.2.2:8000/api/courses"));
+        Future<String> res = executorService.submit(() -> NetworkUtility.readJson("http://10.0.2.2:8000/api/courses"));
         try {
             Gson gson = new Gson();
             list = gson.fromJson(res.get(), new TypeToken<List<Course>>(){}.getType());
@@ -61,7 +59,7 @@ public class Course {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Course course = null;
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/";
-        Future<String> response = executorService.submit(() -> JsonUtility.readJson(url));
+        Future<String> response = executorService.submit(() -> NetworkUtility.readJson(url));
         try {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

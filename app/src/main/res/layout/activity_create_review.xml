@@ -82,7 +82,7 @@
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:hint="Suggestions for students"/>
+            android:hint="Suggestions For Students"/>
 
         <Button
             android:id="@+id/submitReviewButton"
