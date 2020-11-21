@@ -11,12 +11,15 @@
         <TextView
             android:id="@+id/courseTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prerequisites"/>
+            android:text="@string/prerequisites"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"/>
 
         <FrameLayout
             android:id="@+id/prerequisitesFrame"
@@ -26,15 +29,22 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/courseDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:text="Course Description"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/courseDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/writeReview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/write_review"/>
 
         <TextView

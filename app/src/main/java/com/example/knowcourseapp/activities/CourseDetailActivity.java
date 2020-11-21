@@ -32,16 +32,16 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
         courseDescriptionView = findViewById(R.id.courseDescription);
         writeReviewButton = findViewById(R.id.writeReview);
 
-
         Bundle extras = getIntent().getExtras();
         course = Course.getCourse(extras.getString("courseCode"));
         if (course != null) {
+            getSupportActionBar().setTitle(course.getCode());
             writeReviewButton.setOnClickListener((v) -> {
                 Intent intent = new Intent(v.getContext(), CreateReviewActivity.class);
                 intent.putExtra("courseCode", course.getCode());
                 startActivity(intent);
             });
-            String courseTitle = course.getCode() + " " + course.getTitle();
+            String courseTitle = course.getTitle();
             courseTitleView.setText(courseTitle);
             courseDescriptionView.setText(course.getDescription());
             Bundle bundle = new Bundle();

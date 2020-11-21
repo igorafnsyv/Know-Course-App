@@ -22,7 +22,7 @@ public class NetworkUtility {
 
     private NetworkUtility() {}
 
-    public static String readJson(String url) {
+    public static String readJson(String url) throws ConnectException {
 
         HttpURLConnection connection = null;
         String response = "";
@@ -30,6 +30,7 @@ public class NetworkUtility {
             URL urlObj = new URL(url);
             connection = (HttpURLConnection) urlObj.openConnection();
             connection.setInstanceFollowRedirects(true);
+            System.out.println(connection.getResponseCode());
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             StringBuilder jsonSourceBuilder = new StringBuilder();
@@ -41,8 +42,7 @@ public class NetworkUtility {
             reader.close();
 
         } catch (ConnectException ex) {
-            ex.printStackTrace();
-            return "failed to connect";
+            throw ex;
         } catch (IOException ex) {
             ex.printStackTrace();
         }

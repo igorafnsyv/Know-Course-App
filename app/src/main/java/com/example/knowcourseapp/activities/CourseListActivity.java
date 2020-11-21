@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -38,6 +39,10 @@ public class CourseListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.courses);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         courses = Course.getCourses();
+        if (courses == null) {
+            Toast.makeText(this, "Network Connection Error", Toast.LENGTH_LONG).show();
+            return;
+        }
         CoursesAdapter adapter = new CoursesAdapter(courses);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

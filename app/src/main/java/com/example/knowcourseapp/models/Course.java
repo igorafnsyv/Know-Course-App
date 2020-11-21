@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.net.ConnectException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -47,9 +48,11 @@ public class Course {
         Future<String> res = executorService.submit(() -> NetworkUtility.readJson("http://10.0.2.2:8000/api/courses"));
         try {
             Gson gson = new Gson();
-            list = gson.fromJson(res.get(), new TypeToken<List<Course>>(){}.getType());
+            String response = res.get();
+
+            list = gson.fromJson(response, new TypeToken<List<Course>>(){}.getType());
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
         executorService.shutdown();
         return list;
