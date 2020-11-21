@@ -18,12 +18,16 @@ public class Course {
     private String title;
     private String description;
     private List<String> prerequisites;
+    private int averageGrade;
+    private int averageWorkload;
 
-    public Course(String code, String title, String description, List<String> prerequisites) {
+    public Course(String code, String title, String description, List<String> prerequisites, int averageGrade, int averageWorkload) {
         this.code = code;
         this.title = title;
         this.description = description;
         this.prerequisites = prerequisites;
+        this.averageGrade = averageGrade;
+        this.averageWorkload = averageWorkload;
     }
 
     public String getCode() {
@@ -40,6 +44,14 @@ public class Course {
 
     public List<String> getPrerequisites() {
         return prerequisites;
+    }
+
+    public int getAverageGrade() {
+        return averageGrade;
+    }
+
+    public int getAverageWorkload() {
+        return averageWorkload;
     }
 
     public static List<Course> getCourses() {

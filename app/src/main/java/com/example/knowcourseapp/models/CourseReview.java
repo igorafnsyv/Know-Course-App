@@ -34,20 +34,24 @@ public class CourseReview {
 
         //TODO: pass grade?
         gradesMap = new HashMap<>();
-        gradesMap.put(11, "A+");
-        gradesMap.put(10, "A");
-        gradesMap.put(9, "A-");
-        gradesMap.put(8, "B+");
-        gradesMap.put(7, "B");
-        gradesMap.put(6, "B-");
-        gradesMap.put(5, "C+");
-        gradesMap.put(4, "C");
-        gradesMap.put(3, "C-");
-        gradesMap.put(2, "D+");
-        gradesMap.put(1, "D");
-        gradesMap.put(0, "F");
+        gradesMap.put(12, "A+");
+        gradesMap.put(11, "A");
+        gradesMap.put(10, "A-");
+        gradesMap.put(9, "B+");
+        gradesMap.put(8, "B");
+        gradesMap.put(7, "B-");
+        gradesMap.put(6, "C+");
+        gradesMap.put(5, "C");
+        gradesMap.put(4, "C-");
+        gradesMap.put(3, "D+");
+        gradesMap.put(2, "D");
+        gradesMap.put(1, "F");
+        gradesMap.put(0, "P");
+        gradesMap.put(-1, "Not Enough Review");
 
         workloadMap = new HashMap<>();
+
+        workloadMap.put(-1, "Not Enough Reviews");
         workloadMap.put(0, "Easy");
         workloadMap.put(1, "Average");
         workloadMap.put(2, "Above Average");

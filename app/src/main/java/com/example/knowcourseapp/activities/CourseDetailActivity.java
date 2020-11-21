@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.fragments.CoursePrerequisitesFragment;
 import com.example.knowcourseapp.models.Course;
+import com.example.knowcourseapp.models.CourseReview;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,8 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
 
     TextView courseTitleView;
     TextView courseDescriptionView;
+    TextView averageWorkload;
+    TextView averageGrade;
     Button writeReviewButton;
     Course course;
 
@@ -30,7 +33,10 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_course_datails);
         courseTitleView = findViewById(R.id.courseTitle);
         courseDescriptionView = findViewById(R.id.courseDescription);
+        averageGrade = findViewById(R.id.averageGrade);
+        averageWorkload = findViewById(R.id.averageWorkload);
         writeReviewButton = findViewById(R.id.writeReview);
+
 
         Bundle extras = getIntent().getExtras();
         course = Course.getCourse(extras.getString("courseCode"));
@@ -44,6 +50,8 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
             String courseTitle = course.getTitle();
             courseTitleView.setText(courseTitle);
             courseDescriptionView.setText(course.getDescription());
+            averageGrade.setText(CourseReview.intToGrade(course.getAverageGrade()));
+            averageWorkload.setText(CourseReview.intToWorkload(course.getAverageWorkload()));
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("prerequisites", (ArrayList<String>) course.getPrerequisites());
             CoursePrerequisitesFragment fragment = new CoursePrerequisitesFragment();
