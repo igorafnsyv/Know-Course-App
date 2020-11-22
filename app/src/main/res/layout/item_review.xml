@@ -7,6 +7,11 @@
     android:layout_marginTop = "8dp"
     android:orientation = "vertical">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/author"
         android:layout_width = "wrap_content"
@@ -16,11 +21,22 @@
         android:layout_marginTop = "-4dp"
         android:gravity = "center_vertical|center_horizontal"
         android:maxLines = "1"
-        android:text = "AV"
         android:textColor = "@color/colorPrimaryDark"
         android:textSize = "16sp"
         android:fontFamily="sans-serif"
         android:textStyle = "bold"/>
+
+    <TextView
+        android:id="@+id/date_created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop = "-4dp"
+        android:maxLines="1"
+        android:textColor="@color/teal_200"
+        android:textSize="12sp" />
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -44,7 +60,6 @@
                 android:layout_marginEnd = "16dp"
                 android:ellipsize="marquee"
                 android:singleLine="true"
-                android:text = "This is the title line"
                 android:textSize = "14sp"
                 android:fontFamily="sans-serif"/>
 
@@ -136,8 +151,7 @@
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:textSize = "14sp"
-                android:fontFamily="sans-serif"
-                tools:text = "This is the third line"/>
+                android:fontFamily="sans-serif"/>
         </LinearLayout>
 
         <LinearLayout
@@ -158,19 +172,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/date_created"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="sans-serif"
-        android:maxWidth="40dp"
-        android:maxLines="1"
-        android:text="19 min"
-        android:textColor="@color/teal_200"
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/grade"
@@ -182,7 +183,7 @@
         android:layout_marginLeft = "16dp"
         android:layout_marginRight = "16dp"
         android:textColor = "@color/teal_700"
-        android:contentDescription = "Favourite"
+        android:contentDescription = "Grade"
     />
 
     <View
