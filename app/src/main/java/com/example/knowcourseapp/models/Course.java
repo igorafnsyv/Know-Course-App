@@ -6,9 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.net.ConnectException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -54,19 +54,32 @@ public class Course {
         return averageWorkload;
     }
 
-    public static List<Course> getCourses() {
+    public static List<Course> getAllCourses() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<String> res = executorService.submit(() -> NetworkUtility.getJson("http://10.0.2.2:8000/api/courses"));
+        List<Course> list = getCourseList(res);
+        executorService.shutdown();
+        return list;
+    }
+
+    public static List<Course> searchCourses(String query) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<String> res = executor.submit(() -> NetworkUtility.getJson("http://10.0.2.2:8000/api/courses/", query));
+
+        List<Course> list = getCourseList(res);
+        executor.shutdown();
+        return list;
+    }
+
+    private static List<Course> getCourseList(Future<String> res) {
         List<Course> list = null;
-        Future<String> res = executorService.submit(() -> NetworkUtility.readJson("http://10.0.2.2:8000/api/courses"));
         try {
             Gson gson = new Gson();
             String response = res.get();
-
             list = gson.fromJson(response, new TypeToken<List<Course>>(){}.getType());
-        } catch (InterruptedException | ExecutionException e) {
-            e.getCause().printStackTrace();
+        } catch (InterruptedException | ExecutionException ex) {
+            ex.getCause().printStackTrace();
         }
-        executorService.shutdown();
         return list;
     }
 
@@ -74,7 +87,7 @@ public class Course {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Course course = null;
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/";
-        Future<String> response = executorService.submit(() -> NetworkUtility.readJson(url));
+        Future<String> response = executorService.submit(() -> NetworkUtility.getJson(url));
         try {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

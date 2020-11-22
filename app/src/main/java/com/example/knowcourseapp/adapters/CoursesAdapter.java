@@ -18,6 +18,8 @@ import java.util.List;
 
 public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHolder> {
 
+
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView courseName;
@@ -41,6 +43,8 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.ViewHold
     public CoursesAdapter(List<Course> courses) {
         this.courses = courses;
     }
+
+
 
     @NonNull
     @Override

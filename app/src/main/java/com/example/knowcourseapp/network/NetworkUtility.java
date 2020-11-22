@@ -22,12 +22,21 @@ public class NetworkUtility {
 
     private NetworkUtility() {}
 
-    public static String readJson(String url) throws ConnectException {
+    public static String getJson(String url) throws ConnectException {
 
+        return getJson(url, "");
+    }
+
+    public static String getJson(String url, String query) throws ConnectException {
         HttpURLConnection connection = null;
         String response = "";
+        String urlWithQuery = url;
+        if (!query.isEmpty()) {
+            urlWithQuery += "?search=" + query;
+        }
         try {
-            URL urlObj = new URL(url);
+
+            URL urlObj = new URL(urlWithQuery);
             connection = (HttpURLConnection) urlObj.openConnection();
             connection.setInstanceFollowRedirects(true);
             System.out.println(connection.getResponseCode());

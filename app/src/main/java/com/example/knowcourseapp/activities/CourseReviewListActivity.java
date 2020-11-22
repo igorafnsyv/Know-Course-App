@@ -2,6 +2,8 @@ package com.example.knowcourseapp.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -25,9 +27,16 @@ public class CourseReviewListActivity extends Activity {
         RecyclerView recyclerView = findViewById(R.id.courseReviews);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         Bundle extras = getIntent().getExtras();
-        courseReviews = CourseReview.getCourseReview(extras.getString("courseCode"));
+        courseReviews = CourseReview.getCourseReviews(extras.getString("courseCode"));
+        System.out.println(courseReviews == null);
+        if (courseReviews.isEmpty()) {
+            TextView view = findViewById(R.id.noReviewsMessage);
+            view.setText("No Reviews for this Course");
+            return;
+        }
         CourseReviewAdapter adapter = new CourseReviewAdapter(courseReviews);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
+

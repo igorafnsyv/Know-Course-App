@@ -32,7 +32,6 @@ public class CourseReview {
 
     static {
 
-        //TODO: pass grade?
         gradesMap = new HashMap<>();
         gradesMap.put(12, "A+");
         gradesMap.put(11, "A");
@@ -128,12 +127,12 @@ public class CourseReview {
         return suggestions;
     }
 
-    public static List<CourseReview> getCourseReview(String courseCode) {
+    public static List<CourseReview> getCourseReviews(String courseCode) {
         List<CourseReview> courseReviews = null;
         ExecutorService executor = Executors.newSingleThreadExecutor();
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/reviews/";
         System.out.println(url);
-        Future<String> result = executor.submit(() -> NetworkUtility.readJson(url));
+        Future<String> result = executor.submit(() -> NetworkUtility.getJson(url));
         try {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

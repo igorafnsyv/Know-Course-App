@@ -18,4 +18,6 @@
     <string name="workload">Workload: %s</string>
     <string name="review">Review: %s</string>
     <string name="suggestion">Suggestions: %s</string>
+    <string name="app_label">KnowCourse</string>
+    <string name="search_hint">Search…</string>
 </resources>

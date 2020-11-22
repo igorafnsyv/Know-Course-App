@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,21 @@ public class LoginActivity extends Activity {
     }
 
     private void handleLogin() {
+
+        boolean errorPresent = false;
+        if (TextUtils.isEmpty(usernameView.getText())) {
+            usernameView.setError("Username cannot be blank");
+            errorPresent = true;
+        }
+
+        if (TextUtils.isEmpty(passwordView.getText())) {
+            passwordView.setError("Password cannot be blank");
+            errorPresent = true;
+        }
+        if (errorPresent) {
+            return;
+        }
+
         String username = usernameView.getText().toString();
         String password = passwordView.getText().toString();
         Map<String, String> map = new HashMap<>();
@@ -55,7 +71,8 @@ public class LoginActivity extends Activity {
         Future<String> response = executor.submit(() -> NetworkUtility.postJson(url, json, this));
         try {
             Map<String, String> responseJson = gson.fromJson(response.get(), Map.class);
-            if (responseJson != null) {
+
+            if (responseJson.get("token") != null) {
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.app_preferences), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString(getString(R.string.token), responseJson.get("token"));
