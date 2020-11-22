@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.CourseReview;
 import com.example.knowcourseapp.network.JsonUtility;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,15 +44,15 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
 
         COURSE_CODE = getIntent().getStringExtra("courseCode");
 
-        ratingView = findViewById(R.id.ratingInput);
-        yearTakenView = findViewById(R.id.yearTakenInput);
-        gradeView = findViewById(R.id.gradeInput);
-        subclassView = findViewById(R.id.subclassInput);
-        professorView = findViewById(R.id.professorInput);
-        assessmentView = findViewById(R.id.assessmentInput);
-        workloadView = findViewById(R.id.workloadInput);
-        reviewView = findViewById(R.id.reviewInput);
-        suggestionsView = findViewById(R.id.suggestionsInput);
+        ratingView = (TextInputEditText)findViewById(R.id.ratingInput);
+        yearTakenView = (TextInputEditText)findViewById(R.id.yearTakenInput);
+        gradeView = (TextInputEditText)findViewById(R.id.gradeInput);
+        subclassView = (TextInputEditText)findViewById(R.id.subclassInput);
+        professorView = (TextInputEditText)findViewById(R.id.professorInput);
+        assessmentView = (TextInputEditText)findViewById(R.id.assessmentInput);
+        workloadView = (TextInputEditText)findViewById(R.id.workloadInput);
+        reviewView = (TextInputEditText)findViewById(R.id.reviewInput);
+        suggestionsView = (TextInputEditText)findViewById(R.id.suggestionsInput);
         resources = getResources();
 
     }
