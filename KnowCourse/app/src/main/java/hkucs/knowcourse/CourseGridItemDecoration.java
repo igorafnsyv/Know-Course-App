@@ -5,6 +5,8 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import hkucs.knowcourse.fragments.CourseGridFragment;
+
 /**
  * Custom item decoration for a vertical {@link CourseGridFragment} {@link RecyclerView}. Adds a
  * small amount of padding to the left of grid items, and a large amount of padding to the right.

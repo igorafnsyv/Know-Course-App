@@ -1,4 +1,4 @@
-package hkucs.knowcourse;
+package hkucs.knowcourse.fragments;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +14,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import hkucs.knowcourse.R;
+import hkucs.knowcourse.fragments.CourseGridFragment;
+import hkucs.knowcourse.fragments.NavigationHost;
 
 /**
  * Fragment representing the login screen for Shrine.

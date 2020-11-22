@@ -1,4 +1,4 @@
-package hkucs.knowcourse;
+package hkucs.knowcourse.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import hkucs.knowcourse.R;
 import hkucs.knowcourse.network.CourseEntry;
 import hkucs.knowcourse.network.ImageRequester;
 
@@ -22,7 +23,7 @@ public class CourseCardRecyclerViewAdapter extends RecyclerView.Adapter<CourseCa
     private List<CourseEntry> courseListCopy;
     private ImageRequester imageRequester;
 
-    CourseCardRecyclerViewAdapter(List<CourseEntry> courseList) {
+    public CourseCardRecyclerViewAdapter(List<CourseEntry> courseList) {
         this.courseList = courseList;
         courseListCopy = new ArrayList<>(courseList);
         imageRequester = ImageRequester.getInstance();

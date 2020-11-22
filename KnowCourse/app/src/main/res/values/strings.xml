@@ -9,7 +9,8 @@
     <string name="search_title">Search</string>
     <string name="course_title">Title</string>
     <string name="course_description">Secondary text</string>
-
+    <string name="app_preferences">com.example.knowcourseapp.preferences_file</string>
+    <string name="token">token</string>
     <!-- Shrine backdrop menu labels -->
     <string name="featured_label">HOME</string>
     <string name="apartment_label">CCCH</string>

@@ -1,4 +1,4 @@
-package hkucs.knowcourse;
+package hkucs.knowcourse.fragments;
 
 import androidx.fragment.app.Fragment;
 

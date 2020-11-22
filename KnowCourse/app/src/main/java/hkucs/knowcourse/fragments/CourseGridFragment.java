@@ -1,4 +1,4 @@
-package hkucs.knowcourse;
+package hkucs.knowcourse.fragments;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -14,13 +14,15 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import hkucs.knowcourse.CourseGridItemDecoration;
+import hkucs.knowcourse.R;
+import hkucs.knowcourse.adapters.CourseCardRecyclerViewAdapter;
 import hkucs.knowcourse.network.CourseEntry;
 
 public class CourseGridFragment extends Fragment {

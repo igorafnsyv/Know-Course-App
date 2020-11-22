@@ -1,14 +1,13 @@
-package hkucs.knowcourse;
+package hkucs.knowcourse.fragments;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import hkucs.knowcourse.R;
+import hkucs.knowcourse.activities.CreateReviewActivity;
 
 public class CourseDetailFragment extends Fragment {
     private String code;
@@ -27,6 +25,7 @@ public class CourseDetailFragment extends Fragment {
     private Toolbar toolbar;
     private TextView tvTitle;
     private TextView tvDescription;
+    private Button writeReviewButton;
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +42,14 @@ public class CourseDetailFragment extends Fragment {
 
         tvTitle.setText(title);
         tvDescription.setText(description);
+
+        writeReviewButton = view.findViewById(R.id.writeReview);
+
+        writeReviewButton.setOnClickListener((v) -> {
+            Intent intent = new Intent(v.getContext(), CreateReviewActivity.class);
+            intent.putExtra("courseCode", code);
+            startActivity(intent);
+        });
 
         return view;
     }
@@ -68,4 +75,11 @@ public class CourseDetailFragment extends Fragment {
         menuInflater.inflate(R.menu.toolbar_menu, menu);
         super.onCreateOptionsMenu(menu, menuInflater);
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        Intent intent = new Intent(v.getContext(), CourseReviewListActivity.class);
+//        intent.putExtra("courseCode", course.getCode());
+//        startActivity(intent);
+//    }
 }
