@@ -31,11 +31,12 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
     EditText subclassView;
     EditText professorView;
     EditText assessmentView;
-    EditText workloadView;
+    Spinner workloadSpinner;
     EditText reviewView;
     EditText suggestionsView;
     String COURSE_CODE;
     String SELECTED_GRADE;
+    String SELECTED_WORKLOAD;
 
     Resources resources;
 
@@ -50,11 +51,10 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
 
         ratingView = findViewById(R.id.ratingInput);
         yearTakenView = findViewById(R.id.yearTakenInput);
-//        gradeView = findViewById(R.id.gradeInput);
         subclassView = findViewById(R.id.subclassInput);
         professorView = findViewById(R.id.professorInput);
         assessmentView = findViewById(R.id.assessmentInput);
-        workloadView = findViewById(R.id.workloadInput);
+        workloadSpinner = findViewById(R.id.workloadSpinner);
         reviewView = findViewById(R.id.reviewInput);
         suggestionsView = findViewById(R.id.suggestionsInput);
 
@@ -66,7 +66,24 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gradeSpinner.setAdapter(adapter);
 
+        workloadSpinner = findViewById(R.id.workloadSpinner);
+        workloadSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SELECTED_WORKLOAD = (String) parent.getItemAtPosition(position);
+                System.out.println(SELECTED_WORKLOAD);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<CharSequence> workloadValuesAdapter =
+                ArrayAdapter.createFromResource(this, R.array.workload_values_array, android.R.layout.simple_spinner_item);
+        workloadValuesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        workloadSpinner.setAdapter(workloadValuesAdapter);
 
 
         resources = getResources();
@@ -92,11 +109,6 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
             errorPresent = true;
         }
 
-        if (TextUtils.isEmpty(workloadView.getText())) {
-            workloadView.setError("Cannot be blank");
-            errorPresent = true;
-        }
-
         if (TextUtils.isEmpty(reviewView.getText())) {
             reviewView.setError("Cannot be blank");
             errorPresent = true;
@@ -111,7 +123,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
             String assessment = assessmentView.getText().toString();
             int grade = CourseReview.gradeToInt(SELECTED_GRADE);
 
-            int workload = Integer.parseInt(workloadView.getText().toString());
+            int workload = CourseReview.workLoadToInt(SELECTED_WORKLOAD);
             String reviewText = reviewView.getText().toString();
             String suggestions = suggestionsView.getText().toString();
 

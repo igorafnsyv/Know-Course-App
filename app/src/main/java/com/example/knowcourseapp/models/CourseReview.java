@@ -155,4 +155,15 @@ public class CourseReview {
         }
         return gradeNum;
     }
+
+    public static int workLoadToInt(String workload) {
+        int workloadNum = -1;
+        for (int key : workloadMap.keySet()) {
+            if (workloadMap.get(key).equals(workload)) {
+                workloadNum = key;
+                break;
+            }
+        }
+        return workloadNum;
+    }
 }
