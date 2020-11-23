@@ -4,7 +4,10 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +22,12 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CreateReviewActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateReviewActivity extends AppCompatActivity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener {
 
     EditText ratingView;
     EditText yearTakenView;
-    EditText gradeView;
+    Spinner gradeSpinner;
     EditText subclassView;
     EditText professorView;
     EditText assessmentView;
@@ -31,6 +35,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
     EditText reviewView;
     EditText suggestionsView;
     String COURSE_CODE;
+    String SELECTED_GRADE;
 
     Resources resources;
 
@@ -45,13 +50,25 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
 
         ratingView = findViewById(R.id.ratingInput);
         yearTakenView = findViewById(R.id.yearTakenInput);
-        gradeView = findViewById(R.id.gradeInput);
+//        gradeView = findViewById(R.id.gradeInput);
         subclassView = findViewById(R.id.subclassInput);
         professorView = findViewById(R.id.professorInput);
         assessmentView = findViewById(R.id.assessmentInput);
         workloadView = findViewById(R.id.workloadInput);
         reviewView = findViewById(R.id.reviewInput);
         suggestionsView = findViewById(R.id.suggestionsInput);
+
+        gradeSpinner = findViewById(R.id.gradeSpinner);
+        gradeSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this,  R.array.grades_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gradeSpinner.setAdapter(adapter);
+
+
+
+
         resources = getResources();
 
     }
@@ -69,10 +86,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
             yearTakenView.setError("Cannot be blank");
             errorPresent = true;
         }
-        if (TextUtils.isEmpty(gradeView.getText())) {
-            gradeView.setError("Cannot be blank");
-            errorPresent = true;
-        }
+
         if (TextUtils.isEmpty(professorView.getText())) {
             professorView.setError("Cannot be blank");
             errorPresent = true;
@@ -95,7 +109,8 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
             String subclass = subclassView.getText().toString();
             String professor = professorView.getText().toString();
             String assessment = assessmentView.getText().toString();
-            int grade = CourseReview.gradeToInt(gradeView.getText().toString());
+            int grade = CourseReview.gradeToInt(SELECTED_GRADE);
+
             int workload = Integer.parseInt(workloadView.getText().toString());
             String reviewText = reviewView.getText().toString();
             String suggestions = suggestionsView.getText().toString();
@@ -115,5 +130,15 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
             finish();
 
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            SELECTED_GRADE = (String) parent.getItemAtPosition(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        System.out.println("nothing");
     }
 }
