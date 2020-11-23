@@ -25,7 +25,7 @@ import java.util.concurrent.Executors;
 public class CreateReviewActivity extends AppCompatActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener {
 
-    EditText ratingView;
+    Spinner ratingSpinner;
     EditText yearTakenView;
     Spinner gradeSpinner;
     EditText subclassView;
@@ -37,6 +37,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
     String COURSE_CODE;
     String SELECTED_GRADE;
     String SELECTED_WORKLOAD;
+    int SELECTED_RATING;
 
     Resources resources;
 
@@ -49,7 +50,6 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
 
         COURSE_CODE = getIntent().getStringExtra("courseCode");
 
-        ratingView = findViewById(R.id.ratingInput);
         yearTakenView = findViewById(R.id.yearTakenInput);
         subclassView = findViewById(R.id.subclassInput);
         professorView = findViewById(R.id.professorInput);
@@ -85,6 +85,22 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
         workloadValuesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         workloadSpinner.setAdapter(workloadValuesAdapter);
 
+        ratingSpinner = findViewById(R.id.ratingSpinner);
+        ratingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SELECTED_RATING = Integer.parseInt((String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ArrayAdapter<CharSequence> ratingAdapter =
+                ArrayAdapter.createFromResource(this,  R.array.rating_values_array, android.R.layout.simple_spinner_item);
+        ratingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ratingSpinner.setAdapter(ratingAdapter);
 
         resources = getResources();
 
@@ -93,11 +109,6 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         boolean errorPresent = false;
-
-        if (TextUtils.isEmpty(ratingView.getText())) {
-            ratingView.setError("Cannot be blank");
-            errorPresent = true;
-        }
 
         if (TextUtils.isEmpty(yearTakenView.getText())) {
             yearTakenView.setError("Cannot be blank");
@@ -116,7 +127,7 @@ public class CreateReviewActivity extends AppCompatActivity implements View.OnCl
 
         if (!errorPresent) {
             String author = "";
-            int rating = Integer.parseInt(ratingView.getText().toString());
+            int rating = SELECTED_RATING;
             String yearTaken = yearTakenView.getText().toString();
             String subclass = subclassView.getText().toString();
             String professor = professorView.getText().toString();
