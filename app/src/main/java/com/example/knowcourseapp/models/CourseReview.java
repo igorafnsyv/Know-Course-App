@@ -46,7 +46,7 @@ public class CourseReview {
         gradesMap.put(2, "D");
         gradesMap.put(1, "F");
         gradesMap.put(0, "Pass");
-        gradesMap.put(-1, "Not Enough Review");
+        gradesMap.put(-1, "Not Enough Reviews");
 
         workloadMap = new HashMap<>();
 

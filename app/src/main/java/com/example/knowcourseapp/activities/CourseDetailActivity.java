@@ -41,21 +41,8 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
 
 
         Bundle extras = getIntent().getExtras();
-        course = Course.getCourse(extras.getString("courseCode"));
+        initializeLayoutContent(extras.getString("courseCode"));
         if (course != null) {
-            getSupportActionBar().setTitle(course.getCode());
-            writeReviewButton.setOnClickListener((v) -> {
-                Intent intent = new Intent(v.getContext(), CreateReviewActivity.class);
-                intent.putExtra("courseCode", course.getCode());
-                startActivity(intent);
-            });
-            String courseTitle = course.getTitle();
-            courseTitleView.setText(courseTitle);
-            courseDescriptionView.setText(course.getDescription());
-            String rating = course.getAverageRating() + " out of 5";
-            averageRating.setText(String.valueOf(rating));
-            averageGrade.setText(CourseReview.intToGrade(course.getAverageGrade()));
-            averageWorkload.setText(CourseReview.intToWorkload(course.getAverageWorkload()));
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("prerequisites", (ArrayList<String>) course.getPrerequisites());
             CoursePrerequisitesFragment fragment = new CoursePrerequisitesFragment();
@@ -66,6 +53,37 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
             transaction.commitAllowingStateLoss();
         }
 
+    }
+
+    private void initializeLayoutContent(String courseCode) {
+        course = Course.getCourse(courseCode);
+        if (course != null) {
+            getSupportActionBar().setTitle(course.getCode());
+            writeReviewButton.setOnClickListener((v) -> {
+                Intent intent = new Intent(v.getContext(), CreateReviewActivity.class);
+                intent.putExtra("courseCode", course.getCode());
+                startActivity(intent);
+            });
+            String courseTitle = course.getTitle();
+            courseTitleView.setText(courseTitle);
+            courseDescriptionView.setText(course.getDescription());
+            String rating;
+            if (course.getAverageRating() == -1) {
+                rating = "Not Enough Reviews";
+            } else {
+                rating = course.getAverageRating() + " out of 5";
+            }
+            averageRating.setText(rating);
+            averageGrade.setText(CourseReview.intToGrade(course.getAverageGrade()));
+            averageWorkload.setText(CourseReview.intToWorkload(course.getAverageWorkload()));
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeLayoutContent(course.getCode());
     }
 
     @Override
