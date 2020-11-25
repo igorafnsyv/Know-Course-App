@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KnowCourseApp</string>
+    <string name="app_name">KnowCourse</string>
     <string name="package_name">com.example.knowcourseapp</string>
     <string name="app_preferences">com.example.knowcourseapp.preferences_file</string>
     <string name="token">token</string>

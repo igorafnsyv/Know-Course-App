@@ -24,6 +24,7 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
     TextView courseDescriptionView;
     TextView averageWorkload;
     TextView averageGrade;
+    TextView averageRating;
     Button writeReviewButton;
     Course course;
 
@@ -33,6 +34,7 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_course_datails);
         courseTitleView = findViewById(R.id.courseTitle);
         courseDescriptionView = findViewById(R.id.courseDescription);
+        averageRating = findViewById(R.id.averageRating);
         averageGrade = findViewById(R.id.averageGrade);
         averageWorkload = findViewById(R.id.averageWorkload);
         writeReviewButton = findViewById(R.id.writeReview);
@@ -50,6 +52,8 @@ public class CourseDetailActivity extends AppCompatActivity implements View.OnCl
             String courseTitle = course.getTitle();
             courseTitleView.setText(courseTitle);
             courseDescriptionView.setText(course.getDescription());
+            String rating = course.getAverageRating() + " out of 5";
+            averageRating.setText(String.valueOf(rating));
             averageGrade.setText(CourseReview.intToGrade(course.getAverageGrade()));
             averageWorkload.setText(CourseReview.intToWorkload(course.getAverageWorkload()));
             Bundle bundle = new Bundle();
