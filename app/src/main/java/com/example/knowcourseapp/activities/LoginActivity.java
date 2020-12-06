@@ -75,7 +75,6 @@ public class LoginActivity extends Activity {
             if (responseJson.get("token") != null) {
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.app_preferences), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("username", username);
                 editor.putString(getString(R.string.token), responseJson.get("token"));
                 editor.apply();
                 Intent intent = new Intent(this, CourseListActivity.class);
