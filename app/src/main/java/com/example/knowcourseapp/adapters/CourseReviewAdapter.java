@@ -1,7 +1,6 @@
 package com.example.knowcourseapp.adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
