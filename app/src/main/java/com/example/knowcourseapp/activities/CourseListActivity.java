@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,7 @@ import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.adapters.CoursesAdapter;
 import com.example.knowcourseapp.models.Course;
 
-import java.util.*;
+import java.util.List;
 
 public class CourseListActivity extends AppCompatActivity {
     List<Course> courses;

@@ -1,5 +1,7 @@
 package com.example.knowcourseapp.models;
 
+import android.content.Context;
+
 import com.example.knowcourseapp.network.NetworkUtility;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -15,6 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class CourseReview {
+    private int pk;
     private String author;
     private String dateCreated;
     private int rating;
@@ -26,6 +29,7 @@ public class CourseReview {
     private int workload;
     private String review;
     private String suggestions;
+    private List<Upvote> upvotes;
 
     private static Map<Integer, String> gradesMap;
     private static Map<Integer, String> workloadMap;
@@ -65,11 +69,18 @@ public class CourseReview {
         return workloadMap.get(num);
     }
 
-    public CourseReview(String author, String dateCreated, int rating,
-                        String yearTaken, String subclass, String professor,
-                        String assessment, int grade, int workload,
-                        String review, String suggestions) {
-
+    // No upvotes constructor for creating a review
+    public CourseReview(String author,
+                        String dateCreated,
+                        int rating,
+                        String yearTaken,
+                        String subclass,
+                        String professor,
+                        String assessment,
+                        int grade,
+                        int workload,
+                        String review,
+                        String suggestions) {
         this.author = author;
         this.dateCreated = dateCreated;
         this.rating = rating;
@@ -81,6 +92,10 @@ public class CourseReview {
         this.workload = workload;
         this.review = review;
         this.suggestions = suggestions;
+    }
+
+    public int getPk() {
+        return pk;
     }
 
     public String getAuthor() {
@@ -127,23 +142,26 @@ public class CourseReview {
         return suggestions;
     }
 
+    public List<Upvote> getUpvotes() {
+        return upvotes;
+    }
+
     public static List<CourseReview> getCourseReviews(String courseCode) {
         List<CourseReview> courseReviews = null;
         ExecutorService executor = Executors.newSingleThreadExecutor();
         String url = "http://10.0.2.2:8000/api/courses/" + courseCode + "/reviews/";
-        System.out.println(url);
         Future<String> result = executor.submit(() -> NetworkUtility.getJson(url));
         try {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create();
-            System.out.println(result.get());
             courseReviews = gson.fromJson(result.get(), new TypeToken<List<CourseReview>>(){}.getType());
         } catch (InterruptedException | ExecutionException ex) {
             ex.printStackTrace();
         }
         return courseReviews;
     }
+
 
     public static int gradeToInt(String grade) {
         int gradeNum = -1;
