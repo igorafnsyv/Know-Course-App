@@ -1,10 +1,12 @@
 package com.example.knowcourseapp.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.knowcourseapp.R;
 import com.example.knowcourseapp.models.CourseReview;
+import com.example.knowcourseapp.models.Upvote;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +34,8 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         public TextView workload;
         public TextView review;
         public TextView suggestions;
+        public TextView upvotes;
+        public ImageButton thumbUpButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -45,6 +50,8 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
             workload = itemView.findViewById(R.id.workload);
             review = itemView.findViewById(R.id.review);
             suggestions = itemView.findViewById(R.id.suggestions);
+            upvotes = itemView.findViewById(R.id.upvotes);
+            thumbUpButton = itemView.findViewById(R.id.thumbUpButton);
 
         }
 
@@ -69,6 +76,19 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
     @Override
     public void onBindViewHolder(@NonNull CourseReviewAdapter.ViewHolder holder, int position) {
         CourseReview courseReview = reviews.get(position);
+        Resources resources = holder.itemView.getResources();
+        TextView upvotesView = holder.upvotes;
+        ImageButton thumbUpButton = holder.thumbUpButton;
+        thumbUpButton.setOnClickListener(v -> {
+            Upvote upvote = Upvote.upvoteReview(courseReview.getPk(), thumbUpButton.getContext());
+            int voteCount = Integer.parseInt(upvotesView.getText().toString());
+            if (upvote.getAuthor() != null) {
+                voteCount--;
+            } else {
+                voteCount++;
+            }
+            upvotesView.setText(String.valueOf(voteCount));
+        });
         TextView authorView = holder.author;
         TextView dateCreatedView = holder.dateCreated;
         TextView ratingView = holder.rating;
@@ -81,7 +101,7 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         TextView reviewView = holder.review;
         TextView suggestionsView = holder.suggestions;
 
-        Resources resources = holder.itemView.getResources();
+
         String author = Objects.toString(courseReview.getAuthor(), "");
         String dateCreated = Objects.toString(courseReview.getDateCreated(), "");
         String rating = Objects.toString(courseReview.getRating(), "");
@@ -93,7 +113,8 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         String workload = Objects.toString(CourseReview.intToWorkload(courseReview.getWorkload()), "");
         String review = Objects.toString(courseReview.getReview(), "");
         String suggestions = Objects.toString(courseReview.getSuggestions(), "");
-
+        int upvotesCount = courseReview.getUpvotes().size();
+        String upvotes = upvotesCount == 0 ? "0" : String.valueOf(upvotesCount);
         authorView.setText(resources.getString(R.string.author, author));
         dateCreatedView.setText(resources.getString(R.string.date_created, dateCreated));
         ratingView.setText(resources.getString(R.string.rating, rating));
@@ -105,6 +126,7 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
         workloadView.setText(resources.getString(R.string.workload, workload));
         reviewView.setText(resources.getString(R.string.review, review));
         suggestionsView.setText(resources.getString(R.string.suggestion, suggestions));
+        upvotesView.setText(upvotes);
 
 
     }
