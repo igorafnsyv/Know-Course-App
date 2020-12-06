@@ -82,9 +82,9 @@ public class CourseReviewAdapter extends RecyclerView.Adapter<CourseReviewAdapte
             Upvote upvote = Upvote.upvoteReview(courseReview.getPk(), thumbUpButton.getContext());
             int voteCount = Integer.parseInt(upvotesView.getText().toString());
             if (upvote.getAuthor() != null) {
-                voteCount--;
+                ++voteCount;
             } else {
-                voteCount++;
+                --voteCount;
             }
             upvotesView.setText(String.valueOf(voteCount));
         });
